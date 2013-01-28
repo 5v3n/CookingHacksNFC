@@ -5,6 +5,8 @@
   *  Copyright (C) 2012 Libelium Comunicaciones Distribuidas S.L.
   *  http://www.libelium.com
   *
+  * Ported to Arduino 1.0 by Sven Kraeuter sven@makingthingshappen.de
+  *
   *  This program is free software: you can redistribute it and/or modify
   *  it under the terms of the GNU General Public License as published by
   *  the Free Software Foundation, either version 3 of the License, or
@@ -16,9 +18,9 @@
   *  GNU General Public License for more details.
   *
   *  You should have received a copy of the GNU General Public License
-  *  along with this program.  If not, see .
+  *  along with this program.  If not, see http://www.gnu.org/licenses/.
   *
-  *  Version 0.2
+  *  Version 0.3
   *  Author: Ahmad Saad, Javier Solobera, Sven Kraeuter
   */
 
@@ -75,7 +77,7 @@ void loop()
   }
 
   Serial.print("\n");
-  Serial.print("Data readed : ");
+  Serial.print("Data read : ");
   print(aux , 16);
   Serial.print("\n");
   delay(2000);
