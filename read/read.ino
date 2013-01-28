@@ -18,8 +18,8 @@
   *  You should have received a copy of the GNU General Public License
   *  along with this program.  If not, see .
   *
-  *  Version 0.1
-  *  Author: Ahmad Saad, Javier Solobera
+  *  Version 0.2
+  *  Author: Ahmad Saad, Javier Solobera, Sven Kraeuter
   */
 
 uint8_t dataRX[35];//Receive buffer.
@@ -248,15 +248,15 @@ bool configureSAM(void)//! Configure the SAM
 //!Send data stored in dataTX
 void sendTX(uint8_t *dataTX, uint8_t length, uint8_t outLength)
 {
-  Serial.print(0x00, BYTE);
-  Serial.print(0x00, BYTE);
-  Serial.print(0xFF, BYTE); 
+  Serial.write(byte(0x00));
+  Serial.write(byte(0x00));
+  Serial.write(byte(0xFF)); 
 
   for (int i = 0; i < length; i++) {
-    Serial.print(dataTX[i], BYTE);
+    Serial.write(byte(dataTX[i]));
   }
 
-  Serial.print(0x00, BYTE);
+  Serial.write(byte(0x00));
   getACK();
   waitResponse();// Receive response
   getData(outLength);
