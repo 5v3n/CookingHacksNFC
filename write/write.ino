@@ -2,6 +2,8 @@
   *  RFID/NFC module from Libelium for Arduino.
   *  Basic program, read and write.
   *
+  *  Ported to Arduino 1.0 by Sven Kraeuter sven@makingthingshappen.de
+  *
   *  Copyright (C) 2012 Libelium Comunicaciones Distribuidas S.L.
   *  http://www.libelium.com
   *
@@ -18,15 +20,14 @@
   *  You should have received a copy of the GNU General Public License
   *  along with this program.  If not, see .
   *
-  *  Version 0.1
-  *  Author: Ahmad Saad, Javier Solobera
+  *  Version 0.2
+  *  Author: Ahmad Saad, Javier Solobera, Sven Kraeuter
   */
 
 uint8_t dataRX[35];//Receive buffer.
 uint8_t dataTX[35];//Transmit buffer.
 uint8_t _UID[4]; // stores the UID (unique identifier) of a card.
-uint8_t blockData[] =	{0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,
-				0x08,0x09,0x0A,0x0B,0x0C,0x0D,0x0E,0x0F};//Data to write (16 bytes).
+uint8_t blockData[] =	{0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07, 0x08,0x09,0x0A,0x0B,0x0C,0x0D,0x0E,0x0F};//Data to write (16 bytes).
 uint8_t keyAccess[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF} ;// stores the key or password.
 uint8_t address = 0x04;//Address to read.
 uint8_t ATQ[2];//Answer to request
@@ -262,15 +263,15 @@ bool configureSAM(void)//! Configure the SAM
 //!Send data stored in dataTX
 void sendTX(uint8_t *dataTX, uint8_t length, uint8_t outLength)
 {
-	Serial.print(0x00, BYTE);
-	Serial.print(0x00, BYTE);
-	Serial.print(0xFF, BYTE); 
+	Serial.write(byte(0x00));
+	Serial.write(byte(0x00));
+	Serial.write(byte(0xFF)); 
 
 	for (int i = 0; i < length; i++) {
-		Serial.print(dataTX[i], BYTE);
+		Serial.write(byte(dataTX[i]));
 	}
 
-	Serial.print(0x00, BYTE);
+	Serial.write(byte(0x00));
 	getACK();
 	waitResponse();    // 1C - receive response
 	getData(outLength);
